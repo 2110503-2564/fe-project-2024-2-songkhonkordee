@@ -7,15 +7,30 @@ import Grid from "@mui/joy/Grid";
 import Box from "@mui/joy/Box";
 import Link from "next/link";
 
+interface Restaurant {
+    _id: string;
+    name: string;
+    address: string;
+    district: string;
+    province: string;
+    postalcode: string;
+    telephone: string;
+    openTime: string;
+    closeTime: string;
+    averageRating: number;
+}
+
 export default function RestaurantList() {
-    const [restaurants, setRestaurants] = useState([]);
+    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
     useEffect(() => {
         const fetchRestaurants = async () => {
             const res = await fetch("http://localhost:5003/api/v1/restaurants?page=1&limit=10000");
             const data = await res.json();
             if (data.success) {
-                const sortedData = data.data.sort((a, b) => b.averageRating - a.averageRating);
+                const sortedData = (data.data as Restaurant[]).sort(
+                    (a, b) => b.averageRating - a.averageRating
+                );
                 setRestaurants(sortedData);
             }
         };

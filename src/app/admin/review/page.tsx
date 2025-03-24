@@ -12,6 +12,7 @@ import {
     Stack,
     CircularProgress,
     Textarea,
+    TextField,
     Select,
     Option,
     Alert
@@ -26,7 +27,7 @@ interface Review {
 }
 
 export default function AdminManageReviews() {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -168,7 +169,7 @@ export default function AdminManageReviews() {
 
                                         <Typography sx={{ mt: 2 }}>ความคิดเห็น:</Typography>
                                         <Textarea
-                                            fullWidth
+                                            // fullWidth
                                             defaultValue={review.comment}
                                             onChange={(e) => setEditedComment(e.target.value)}
                                         />

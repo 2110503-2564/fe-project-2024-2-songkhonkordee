@@ -25,7 +25,13 @@ import Link from 'next/link';
 
 import { closeSidebar } from './utils';
 
-function Toggler({ defaultExpanded = false, renderToggle, children }: any) {
+interface TogglerProps {
+    defaultExpanded?: boolean;
+    renderToggle: (params: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => React.ReactNode;
+    children: React.ReactNode;
+}
+
+function Toggler({ defaultExpanded = false, renderToggle, children }: TogglerProps) {
     const [open, setOpen] = React.useState(defaultExpanded);
     return (
         <>

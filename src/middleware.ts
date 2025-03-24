@@ -1,18 +1,43 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
 
-export function middleware(req) {
-  const url = req.nextUrl.pathname;
-  console.log("Middleware hit:", url); // Debug log
+// ใช้ withAuth เป็น default export และกำหนด callbacks เพื่อควบคุมการเข้าถึง
+export default withAuth(
+  function middleware(req) {
+    const url = req.nextUrl.pathname;
+    console.log("Middleware hit:", url); // Debug log
 
-  // ยกเว้น /restaurant ไม่ต้องล็อกอิน
-  if (url === "/restaurant") {
+    // ให้เข้าถึงหน้าร้านอาหารได้โดยไม่ต้องล็อกอิน
+    if (
+      url === "/restaurant" ||
+      (url.startsWith("/restaurant/") && !url.includes("/order"))
+    ) {
+      return NextResponse.next();
+    }
+
+    // ส่วนที่เหลือให้ตรวจสอบการล็อกอินตามปกติ
     return NextResponse.next();
-  }
+  },
+  {
+    callbacks: {
+      // เงื่อนไขการตรวจสอบว่าได้รับอนุญาตหรือไม่
+      authorized: ({ req, token }) => {
+        const url = req.nextUrl.pathname;
 
-  // บังคับล็อกอินทุกเส้นทางอื่นๆ ที่อยู่ใน matcher
-  return withAuth(req);
-}
+        // ยกเว้นเส้นทางที่ไม่ต้องล็อกอิน
+        if (
+          url === "/restaurant" ||
+          (url.startsWith("/restaurant/") && !url.includes("/order"))
+        ) {
+          return true;
+        }
+
+        // เส้นทางอื่นๆ ต้องมี token (ล็อกอินแล้ว)
+        return !!token;
+      },
+    },
+  }
+);
 
 export const config = {
   matcher: [
@@ -20,6 +45,6 @@ export const config = {
     "/mybooking",
     "/admin/booking",
     "/admin/review",
-    "/restaurant/:id*", // ต้องล็อกอินถ้ามีอะไรมาต่อท้าย /restaurant/ เช่น /restaurant/123
+    "/restaurant/:path*", // รวมทุกเส้นทางภายใต้ /restaurant
   ],
 };

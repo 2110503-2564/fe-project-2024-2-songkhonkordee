@@ -16,9 +16,17 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 
+interface UserProfile {
+    data: {
+        name: string;
+        role: string;
+        email: string;
+    }
+}
+
 export default function MyProfile() {
     const { data: session, status } = useSession();
-    const [profile, setProfile] = useState(null);
+    const [profile, setProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -43,7 +51,7 @@ export default function MyProfile() {
     if (!session || !profile) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-                <Alert severity="warning">You are not logged in.</Alert>
+                <Alert color="warning">You are not logged in.</Alert>
             </Box>
         );
     }
@@ -83,13 +91,13 @@ export default function MyProfile() {
                             <Stack spacing={1}>
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
-                                    <Input size="sm" placeholder="Name" disabled defaultValue={profile.data.name} />
+                                    <Input size="sm" placeholder="Name" disabled defaultValue={profile?.data?.name || ""} />
                                 </FormControl>
                             </Stack>
                             <Stack direction="row" spacing={2}>
                                 <FormControl>
                                     <FormLabel>Role</FormLabel>
-                                    <Input size="sm" disabled value={profile.data.role} />
+                                    <Input size="sm" disabled value={profile?.data?.role || ""} />
                                 </FormControl>
                                 <FormControl sx={{ flexGrow: 1 }}>
                                     <FormLabel>Email</FormLabel>
@@ -98,7 +106,7 @@ export default function MyProfile() {
                                         type="email"
                                         startDecorator={<EmailRoundedIcon />}
                                         placeholder="email"
-                                        defaultValue={profile.data.email}
+                                        defaultValue={profile?.data?.email || ""}
                                         disabled
                                         sx={{ flexGrow: 1 }}
                                     />
