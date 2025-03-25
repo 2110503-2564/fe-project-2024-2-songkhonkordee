@@ -2,7 +2,7 @@
 import { Link } from "@mui/material";
 
 async function getRestaurant(id: string) {
-    const res = await fetch(`http://localhost:5003/api/v1/restaurants/${id}`);
+    const res = await fetch(`http://213.136.76.41:5003/api/v1/restaurants/${id}`);
     const data = await res.json();
     return data;
 }

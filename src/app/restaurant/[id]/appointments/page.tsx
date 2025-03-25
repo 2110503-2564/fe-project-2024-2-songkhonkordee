@@ -27,7 +27,7 @@ export default function BookingPage({ params }: { params: { id: string } }) {
         };
 
         try {
-            const res = await fetch(`http://localhost:5003/api/v1/restaurants/${params.id}/appointments`, {
+            const res = await fetch(`http://213.136.76.41:5003/api/v1/restaurants/${params.id}/appointments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
