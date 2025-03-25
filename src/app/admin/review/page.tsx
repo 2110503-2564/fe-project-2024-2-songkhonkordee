@@ -54,7 +54,7 @@ export default function AdminManageReviews() {
         if (!session?.user.token) return;
         setLoading(true);
         try {
-            const res = await fetch("http://213.136.76.41:5003/api/v1/reviews", {
+            const res = await fetch("https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/reviews", {
                 headers: { Authorization: `Bearer ${session.user.token}` },
             });
             const data = await res.json();
@@ -72,7 +72,7 @@ export default function AdminManageReviews() {
     const handleDelete = async (id: string) => {
         if (!confirm("คุณต้องการลบรีวิวนี้ใช่หรือไม่?")) return;
         try {
-            await fetch(`http://213.136.76.41:5003/api/v1/reviews/${id}`, {
+            await fetch(`https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/reviews/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${session?.user.token}` },
             });
@@ -92,7 +92,7 @@ export default function AdminManageReviews() {
             console.log("Updating review with ID:", id);
             console.log("Sending data:", { comment: editedComment, rating: editedRating });
 
-            const res = await fetch(`http://213.136.76.41:5003/api/v1/reviews/${id}`, {
+            const res = await fetch(`https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/reviews/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

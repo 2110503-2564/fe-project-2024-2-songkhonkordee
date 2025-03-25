@@ -63,7 +63,7 @@ export default function MyBookingsPage() {
         if (!token) return;
         setLoading(true);
         try {
-            const res = await fetch("http://213.136.76.41:5003/api/v1/appointments/", {
+            const res = await fetch("https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/appointments/", {
                 headers: { Authorization: `Bearer ${token}` },
                 cache: 'no-store'
             });
@@ -84,7 +84,7 @@ export default function MyBookingsPage() {
         setIsRefreshing(true);
         try {
             // แก้ไข endpoint จาก user/reviews เป็น users/reviews ตามที่ API ใช้จริง
-            const res = await fetch("http://213.136.76.41:5003/api/v1/users/reviews", {
+            const res = await fetch("https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/users/reviews", {
                 headers: { Authorization: `Bearer ${token}` },
                 cache: 'no-store',
                 method: 'GET'
@@ -124,8 +124,8 @@ export default function MyBookingsPage() {
             // ตรวจสอบว่าเป็นการสร้างหรือแก้ไขรีวิว
             const isEdit = userReviews[restaurantId] !== undefined;
             const url = isEdit
-                ? `http://213.136.76.41:5003/api/v1/reviews/${userReviews[restaurantId]._id}`
-                : `http://213.136.76.41:5003/api/v1/restaurants/${restaurantId}/reviews`;
+                ? `https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/reviews/${userReviews[restaurantId]._id}`
+                : `https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/restaurants/${restaurantId}/reviews`;
 
             console.log("Submitting review to:", url);
             console.log("Review data:", { rating, comment });
@@ -165,7 +165,7 @@ export default function MyBookingsPage() {
         if (!confirm("คุณแน่ใจหรือไม่ว่าต้องการลบรีวิวนี้?")) return;
 
         try {
-            const res = await fetch(`http://213.136.76.41:5003/api/v1/reviews/${reviewId}`, {
+            const res = await fetch(`https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/reviews/${reviewId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
                 cache: 'no-store'

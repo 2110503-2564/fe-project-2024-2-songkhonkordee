@@ -6,7 +6,7 @@ async function fetchRestaurants(page: number, limit: number, filters: any = {}) 
         ...filters
     });
 
-    const response = await fetch(`http://213.136.76.41:5003/api/v1/restaurants?${queryParams}`, {
+    const response = await fetch(`https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/restaurants?${queryParams}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

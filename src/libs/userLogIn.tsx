@@ -1,5 +1,5 @@
 export default async function userLogIn(userEmail: string, userPassword: string) {
-    const response = await fetch("http://213.136.76.41:5003/api/v1/auth/login", {
+    const response = await fetch("https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

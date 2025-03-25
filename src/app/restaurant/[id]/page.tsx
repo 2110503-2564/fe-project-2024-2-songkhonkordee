@@ -2,7 +2,7 @@
 import { Link } from "@mui/material";
 
 async function getRestaurant(id: string) {
-    const res = await fetch(`http://213.136.76.41:5003/api/v1/restaurants/${id}`);
+    const res = await fetch(`https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/restaurants/${id}`);
     const data = await res.json();
     return data;
 }

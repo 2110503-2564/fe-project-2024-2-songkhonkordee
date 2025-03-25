@@ -47,7 +47,7 @@ export default function AdminViewAllBookings() {
     if (!session?.user.token) return;
     setLoading(true);
     try {
-      const res = await fetch("http://213.136.76.41:5003/api/v1/appointments/", {
+      const res = await fetch("https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/appointments/", {
         headers: { Authorization: `Bearer ${session.user.token}` },
       });
       const data = await res.json();
@@ -68,7 +68,7 @@ export default function AdminViewAllBookings() {
     if (!newDate) return alert("กรุณาเลือกวันและเวลาใหม่");
     try {
       const res = await fetch(
-        `http://213.136.76.41:5003/api/v1/appointments/${id}`,
+        `https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/appointments/${id}`,
         {
           method: "PUT",
           headers: {
@@ -95,7 +95,7 @@ export default function AdminViewAllBookings() {
     if (!confirm("คุณต้องการลบการจองนี้ใช่หรือไม่?")) return;
     try {
       const res = await fetch(
-        `http://213.136.76.41:5003/api/v1/appointments/${id}`,
+        `https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/appointments/${id}`,
         {
           method: "DELETE",
           headers: {

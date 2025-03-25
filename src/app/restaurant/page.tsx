@@ -25,7 +25,7 @@ export default function RestaurantList() {
 
     useEffect(() => {
         const fetchRestaurants = async () => {
-            const res = await fetch("http://213.136.76.41:5003/api/v1/restaurants?page=1&limit=10000");
+            const res = await fetch("https://be-project-2024-2-songkhonkordee.vercel.app/api/v1/restaurants?page=1&limit=10000");
             const data = await res.json();
             if (data.success) {
                 const sortedData = (data.data as Restaurant[]).sort(
